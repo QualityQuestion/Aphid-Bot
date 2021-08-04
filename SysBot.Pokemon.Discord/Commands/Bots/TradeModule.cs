@@ -133,7 +133,7 @@ namespace SysBot.Pokemon.Discord
             }
             else if (evolveByTrade.Contains(depositasint))
             {
-                var msg = "Oops! Pokemon you are trying to deposit is banned from being traded to me, since it can evolve when traded!";
+                var msg = "Oops! Pokemon you are trying to deposit is banned from being traded to me, as it can evolve when traded!";
                 await ReplyAsync(msg).ConfigureAwait(false);
                 return;
             }
@@ -337,7 +337,7 @@ namespace SysBot.Pokemon.Discord
             }
             else if (evolveByTrade.Contains(bless))
             {
-                var msg = "Oops! The Pokemon you are trying to deposit is banned from being traded to me, since it can evolve when traded!";
+                var msg = "Oops! The Pokemon you are trying to deposit is banned from being traded to me, as it can evolve when traded!";
                 await ReplyAsync(msg).ConfigureAwait(false);
                 return;
             }
