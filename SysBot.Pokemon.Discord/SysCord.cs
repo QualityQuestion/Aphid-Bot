@@ -23,7 +23,7 @@ namespace SysBot.Pokemon.Discord
     public sealed class SysCord
     {
         private readonly DiscordSocketClient _client;
-        public readonly PokeTradeHub<PK8> Hub;
+        public readonly PokeTradeHub<PK8> Hub; //changed from pk8
 
         // Keep the CommandService and DI container around for use with commands.
         // These two types require you install the Discord.Net.Commands package.
@@ -33,7 +33,7 @@ namespace SysBot.Pokemon.Discord
         // Bot listens to channel messages to reply with a ShowdownSet whenever a PKM file is attached (not with a command).
         private bool ConvertPKMToShowdownSet { get; } = true;
 
-        public SysCord(PokeTradeHub<PK8> hub)
+        public SysCord(PokeTradeHub<PK8> hub) //changed from pk8
         {
             Hub = hub;
             SysCordInstance.Self = this; // hack

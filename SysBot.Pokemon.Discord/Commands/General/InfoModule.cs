@@ -16,9 +16,9 @@ namespace SysBot.Pokemon.Discord
     // Copyright 2017, Christopher F. <foxbot@protonmail.com>
     public class InfoModule : ModuleBase<SocketCommandContext>
     {
-        private const string detail = "I am an open source Discord bot powered by PKHeX.Core and other open source software.";
+        private const string detail = "I am a Discord bot powered by PKHeX.Core, Sysbot, and Ledybot.";
         private const string repo = "https://github.com/kwsch/SysBot.NET";
-
+        private const string repo2 = "https://github.com/olliz0r/Ledybot";
         [Command("info")]
         [Alias("about", "whoami", "owner")]
         public async Task InfoAsync()
@@ -32,7 +32,8 @@ namespace SysBot.Pokemon.Discord
             };
 
             builder.AddField("Info",
-                $"- [Source Code]({repo})\n" +
+                $"- [Sysbot Source code]({repo})\n" +
+                $"- [Ledybot Source code]({repo2})\n" +
                 $"- {Format.Bold("Owner")}: {app.Owner} ({app.Owner.Id})\n" +
                 $"- {Format.Bold("Library")}: Discord.Net ({DiscordConfig.Version})\n" +
                 $"- {Format.Bold("Uptime")}: {GetUptime()}\n" +
@@ -52,7 +53,41 @@ namespace SysBot.Pokemon.Discord
 
             await ReplyAsync("Here's a bit about me!", embed: builder.Build()).ConfigureAwait(false);
         }
+        [Command("commands")]
+        [Alias("Commands")]
+        public async Task PossibleCMDs()
+        {
+            var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
 
+            var builder = new EmbedBuilder
+            {
+                Color = new Color(114, 137, 218),
+                Description = detail,
+            };
+
+            builder.AddField("Commands",
+                $"- {Format.Bold("%trade or %t")}: trade command for a showdown set or format\n" +
+                $"- {Format.Bold("%tradefile or %tf")}: trade command for a .pk7 file\n" +
+                $"- {Format.Bold("%queuestatus or %qs")}: get your current position in the queue\n" +
+                $"- {Format.Bold("%queueclear or %qc")}: remove yourself from the queue\n" +
+                $"- {Format.Bold("%qinfo")}: Info for nerds\n" +
+                $"- {Format.Bold("%help")}: get help with using the GTS bot\n"
+                );
+
+            await ReplyAsync("Here are the possible commands!", embed: builder.Build()).ConfigureAwait(false);
+        }
+        [Command("help")]
+        [Alias("about", "whoami", "owner")]
+        public async Task HelpAsync()
+        {
+            var msg0 = "Here is an example of how to request a Pokemon with the GTS bot! \n";
+            var msg1 = "`%trade Pikachu (F)` \n`Ball: Ultra Ball` \n`IVs: 22 HP / 30 Atk / 30 Def / 21 SpA / 14 SpD / 11 Spe` \n`EVs: 40 HP / 40 Atk / 48 Def / 50 SpA / 80 SpD / 252 Spe` \n`Ability: Static` \n`Level: 99` \n`Shiny: Yes` \n`Hardy Nature` \n`- Thunder Shock` \n`- Charm` \n`??d: 89`\n";
+            var msg2 = "This command tells the bot to look on the GTS for a Muk (Muk is pokedex number 89 i.e ??d: 89) and to Generate a Shiny, Level 99 Pikachu, caught in an Ultra Ball, with all of the requested IVs/Evs\n";
+            var msg3 = "The bot will then message you a code, change the nickname of your Pokemon that you are going to deposit to the code.";
+            var msg4 = msg0 + msg1 + msg2 + msg3;
+
+            await ReplyAsync(msg4).ConfigureAwait(false);
+        }
         private static string GetUptime() => (DateTime.Now - Process.GetCurrentProcess().StartTime).ToString(@"dd\.hh\:mm\:ss");
         private static string GetHeapSize() => Math.Round(GC.GetTotalMemory(true) / (1024.0 * 1024.0), 2).ToString(CultureInfo.CurrentCulture);
 

@@ -50,9 +50,10 @@ namespace SysBot.Pokemon
             if (!string.IsNullOrWhiteSpace(externalSource) && Directory.Exists(externalSource))
                 TrainerSettings.LoadTrainerDatabaseFromPath(externalSource);
 
-            SaveFile GetFallbackBlank(int generation)
+            SaveFile GetFallbackBlank(int generation) // int generation
             {
-                var blankSav = SaveUtil.GetBlankSAV(generation, OT);
+                //genseven = 7; // delete
+                var blankSav = SaveUtil.GetBlankSAV(generation, OT); // int generation
                 blankSav.Language = lang;
                 blankSav.TID = TID;
                 blankSav.SID = SID;
@@ -60,7 +61,7 @@ namespace SysBot.Pokemon
                 return blankSav;
             }
 
-            for (int i = 1; i < PKX.Generation + 1; i++)
+            for (int i = 1; i < PKX.Generation +1; i++) // here
             {
                 var fallback = GetFallbackBlank(i);
                 var exist = TrainerSettings.GetSavedTrainerData(i, fallback);
@@ -68,7 +69,7 @@ namespace SysBot.Pokemon
                     TrainerSettings.Register(fallback);
             }
 
-            var trainer = TrainerSettings.GetSavedTrainerData(PKX.Generation);
+            var trainer = TrainerSettings.GetSavedTrainerData(PKX.Generation); // here
             PKMConverter.SetPrimaryTrainer(trainer);
         }
 

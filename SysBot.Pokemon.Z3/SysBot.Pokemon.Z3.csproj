@@ -5,6 +5,7 @@
     <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64;x86</Platforms>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>

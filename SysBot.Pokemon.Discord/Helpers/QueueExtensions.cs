@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using Discord.Net;
 using PKHeX.Core;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SysBot.Pokemon.Discord
 {
@@ -100,5 +101,39 @@ namespace SysBot.Pokemon.Discord
             }
             return true;
         }
+        /*public static async Task DMtheDingus(this SocketCommandContext Context, SocketUser trader, int pseudorand, PK7 pk7)
+        {
+            var pkmnametest = "";
+            pkmnametest = "" + (Species)pk7.Species; //the easier way smfh
+            var msg = $"Added to the GTS Trade Queue, deposit a " + TradeModule.ledybotspecies + " nicknamed:** " + pseudorand + " **and request a** " + pkmnametest + "** make sure to set the Gender and Level are both set to *ANY*";
+            IUserMessage test;
+            try
+            {
+                test = await trader.SendMessageAsync(msg).ConfigureAwait(false);
+            }
+            catch (HttpException ex)
+            {
+                await Context.Channel.SendMessageAsync($"{ex.HttpCode}: {ex.Reason}!").ConfigureAwait(false);
+                var noAccessMsg = Context.User == trader ? "You must enable private messages in order to be queued!" : "The mentioned user must enable private messages in order for them to be queued!";
+                await Context.Channel.SendMessageAsync(noAccessMsg).ConfigureAwait(false);
+                await Context.Message.DeleteAsync(RequestOptions.Default).ConfigureAwait(false);
+                return;
+            }
+        }*/
+
+        /*public static List<string> magiclist = new List<string>();
+        public static void DMbcfound(List<string> tragiclist)
+        {
+            
+        }
+        public static async Task transferdingus(int pseudorand, PK7 pk7)
+        {
+            static async Task doesthiswork(SocketCommandContext Context, SocketUser trader, int pseudorand, PK7 pk7)
+            {
+                await Context.DMtheDingus(trader, pseudorand, pk7).ConfigureAwait(false);
+                return;
+            }*/
+        }
+
+
     }
-}

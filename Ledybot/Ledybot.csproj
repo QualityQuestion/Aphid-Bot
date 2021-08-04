@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A95B46E-CD57-4F68-AB2E-29ED7BF9F8A6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ledybot</RootNamespace>
+    <AssemblyName>AphidBot</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>aphidbot_128.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ConsoleControl, Version=1.3.0.0, Culture=neutral, PublicKeyToken=7edd23586f5e297f, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleControl.1.3.0\lib\net40-client\ConsoleControl.dll</HintPath>
+    </Reference>
+    <Reference Include="ConsoleControlAPI, Version=1.3.0.0, Culture=neutral, PublicKeyToken=7c86b8a36b9c33e2, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleControlAPI.1.3.0\lib\net40\ConsoleControlAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Commands, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Discord.Net.Commands.2.4.0\lib\net461\Discord.Net.Commands.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Core, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Discord.Net.Core.2.4.0\lib\net461\Discord.Net.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Rest, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Discord.Net.Rest.2.4.0\lib\net461\Discord.Net.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Webhook, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Discord.Net.Webhook.2.4.0\lib\netstandard2.0\Discord.Net.Webhook.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.WebSocket, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Discord.Net.WebSocket.2.4.0\lib\net461\Discord.Net.WebSocket.dll</HintPath>
+    </Reference>
+    <Reference Include="IndexRange, Version=1.0.0.0, Culture=neutral, PublicKeyToken=35e6a3c4212514c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\IndexRange.1.0.0\lib\net45\IndexRange.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PKHeX.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PKHeX.Core.21.5.21\lib\net46\PKHeX.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Siticone.Desktop.UI, Version=2.0.7.0, Culture=neutral, PublicKeyToken=8007fe7702ed05c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Siticone.Desktop.UI.2.0.7\lib\net40\Siticone.Desktop.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.5.0.0\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Interactive.Async, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.5.0.0\lib\net461\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Async, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Async.5.0.0\lib\net461\System.Linq.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BanlistDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BanlistDetails.Designer.cs">
+      <DependentUpon>BanlistDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BLInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BLInput.Designer.cs">
+      <DependentUpon>BLInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GDInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GDInput.Designer.cs">
+      <DependentUpon>GDInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GiveawayDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GiveawayDetails.Designer.cs">
+      <DependentUpon>GiveawayDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PokeBotRunnerImpl.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BanlistDetails.resx">
+      <DependentUpon>BanlistDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BLInput.resx">
+      <DependentUpon>BLInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GDInput.resx">
+      <DependentUpon>GDInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GiveawayDetails.resx">
+      <DependentUpon>GiveawayDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="FodyWeavers.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="aphidbot_128.ico" />
+    <None Include="Resources\aphid_bot_logo.png" />
+    <None Include="Resources\aphid_bot_logo - Copy.png" />
+    <None Include="locale\countries.txt" />
+    <Content Include="Console.ico" />
+    <Content Include="FodyWeavers.xml" />
+    <Content Include="locale\countryMap.txt" />
+    <Content Include="locale\languages.txt" />
+    <Content Include="locale\regions3ds.txt" />
+    <None Include="locale\sr_ID\sr_001.txt" />
+    <None Include="locale\sr_ID\sr_008.txt" />
+    <None Include="locale\sr_ID\sr_009.txt" />
+    <None Include="locale\sr_ID\sr_010.txt" />
+    <None Include="locale\sr_ID\sr_011.txt" />
+    <None Include="locale\sr_ID\sr_012.txt" />
+    <None Include="locale\sr_ID\sr_013.txt" />
+    <None Include="locale\sr_ID\sr_014.txt" />
+    <None Include="locale\sr_ID\sr_015.txt" />
+    <None Include="locale\sr_ID\sr_016.txt" />
+    <None Include="locale\sr_ID\sr_017.txt" />
+    <None Include="locale\sr_ID\sr_018.txt" />
+    <None Include="locale\sr_ID\sr_019.txt" />
+    <None Include="locale\sr_ID\sr_020.txt" />
+    <None Include="locale\sr_ID\sr_021.txt" />
+    <None Include="locale\sr_ID\sr_022.txt" />
+    <None Include="locale\sr_ID\sr_023.txt" />
+    <None Include="locale\sr_ID\sr_024.txt" />
+    <None Include="locale\sr_ID\sr_025.txt" />
+    <None Include="locale\sr_ID\sr_026.txt" />
+    <None Include="locale\sr_ID\sr_027.txt" />
+    <None Include="locale\sr_ID\sr_028.txt" />
+    <None Include="locale\sr_ID\sr_029.txt" />
+    <None Include="locale\sr_ID\sr_030.txt" />
+    <None Include="locale\sr_ID\sr_031.txt" />
+    <None Include="locale\sr_ID\sr_032.txt" />
+    <None Include="locale\sr_ID\sr_033.txt" />
+    <None Include="locale\sr_ID\sr_034.txt" />
+    <None Include="locale\sr_ID\sr_035.txt" />
+    <None Include="locale\sr_ID\sr_036.txt" />
+    <None Include="locale\sr_ID\sr_037.txt" />
+    <None Include="locale\sr_ID\sr_038.txt" />
+    <None Include="locale\sr_ID\sr_039.txt" />
+    <None Include="locale\sr_ID\sr_040.txt" />
+    <None Include="locale\sr_ID\sr_041.txt" />
+    <None Include="locale\sr_ID\sr_042.txt" />
+    <None Include="locale\sr_ID\sr_043.txt" />
+    <None Include="locale\sr_ID\sr_044.txt" />
+    <None Include="locale\sr_ID\sr_045.txt" />
+    <None Include="locale\sr_ID\sr_046.txt" />
+    <None Include="locale\sr_ID\sr_047.txt" />
+    <None Include="locale\sr_ID\sr_048.txt" />
+    <None Include="locale\sr_ID\sr_049.txt" />
+    <None Include="locale\sr_ID\sr_050.txt" />
+    <None Include="locale\sr_ID\sr_051.txt" />
+    <None Include="locale\sr_ID\sr_052.txt" />
+    <None Include="locale\sr_ID\sr_064.txt" />
+    <None Include="locale\sr_ID\sr_065.txt" />
+    <None Include="locale\sr_ID\sr_066.txt" />
+    <None Include="locale\sr_ID\sr_067.txt" />
+    <None Include="locale\sr_ID\sr_068.txt" />
+    <None Include="locale\sr_ID\sr_069.txt" />
+    <None Include="locale\sr_ID\sr_070.txt" />
+    <None Include="locale\sr_ID\sr_071.txt" />
+    <None Include="locale\sr_ID\sr_072.txt" />
+    <None Include="locale\sr_ID\sr_073.txt" />
+    <None Include="locale\sr_ID\sr_074.txt" />
+    <None Include="locale\sr_ID\sr_075.txt" />
+    <None Include="locale\sr_ID\sr_076.txt" />
+    <None Include="locale\sr_ID\sr_077.txt" />
+    <None Include="locale\sr_ID\sr_078.txt" />
+    <None Include="locale\sr_ID\sr_079.txt" />
+    <None Include="locale\sr_ID\sr_080.txt" />
+    <None Include="locale\sr_ID\sr_081.txt" />
+    <None Include="locale\sr_ID\sr_082.txt" />
+    <None Include="locale\sr_ID\sr_083.txt" />
+    <None Include="locale\sr_ID\sr_084.txt" />
+    <None Include="locale\sr_ID\sr_085.txt" />
+    <None Include="locale\sr_ID\sr_086.txt" />
+    <None Include="locale\sr_ID\sr_087.txt" />
+    <None Include="locale\sr_ID\sr_088.txt" />
+    <None Include="locale\sr_ID\sr_089.txt" />
+    <None Include="locale\sr_ID\sr_090.txt" />
+    <None Include="locale\sr_ID\sr_091.txt" />
+    <None Include="locale\sr_ID\sr_092.txt" />
+    <None Include="locale\sr_ID\sr_093.txt" />
+    <None Include="locale\sr_ID\sr_094.txt" />
+    <None Include="locale\sr_ID\sr_095.txt" />
+    <None Include="locale\sr_ID\sr_096.txt" />
+    <None Include="locale\sr_ID\sr_097.txt" />
+    <None Include="locale\sr_ID\sr_098.txt" />
+    <None Include="locale\sr_ID\sr_099.txt" />
+    <None Include="locale\sr_ID\sr_100.txt" />
+    <None Include="locale\sr_ID\sr_101.txt" />
+    <None Include="locale\sr_ID\sr_102.txt" />
+    <None Include="locale\sr_ID\sr_103.txt" />
+    <None Include="locale\sr_ID\sr_104.txt" />
+    <None Include="locale\sr_ID\sr_105.txt" />
+    <None Include="locale\sr_ID\sr_106.txt" />
+    <None Include="locale\sr_ID\sr_107.txt" />
+    <None Include="locale\sr_ID\sr_108.txt" />
+    <None Include="locale\sr_ID\sr_109.txt" />
+    <None Include="locale\sr_ID\sr_110.txt" />
+    <None Include="locale\sr_ID\sr_111.txt" />
+    <None Include="locale\sr_ID\sr_112.txt" />
+    <None Include="locale\sr_ID\sr_113.txt" />
+    <None Include="locale\sr_ID\sr_114.txt" />
+    <None Include="locale\sr_ID\sr_115.txt" />
+    <None Include="locale\sr_ID\sr_116.txt" />
+    <None Include="locale\sr_ID\sr_117.txt" />
+    <None Include="locale\sr_ID\sr_118.txt" />
+    <None Include="locale\sr_ID\sr_119.txt" />
+    <None Include="locale\sr_ID\sr_120.txt" />
+    <None Include="locale\sr_ID\sr_121.txt" />
+    <None Include="locale\sr_ID\sr_122.txt" />
+    <None Include="locale\sr_ID\sr_123.txt" />
+    <None Include="locale\sr_ID\sr_124.txt" />
+    <None Include="locale\sr_ID\sr_125.txt" />
+    <None Include="locale\sr_ID\sr_126.txt" />
+    <None Include="locale\sr_ID\sr_127.txt" />
+    <None Include="locale\sr_ID\sr_128.txt" />
+    <None Include="locale\sr_ID\sr_136.txt" />
+    <None Include="locale\sr_ID\sr_144.txt" />
+    <None Include="locale\sr_ID\sr_153.txt" />
+    <None Include="locale\sr_ID\sr_156.txt" />
+    <None Include="locale\sr_ID\sr_160.txt" />
+    <None Include="locale\sr_ID\sr_168.txt" />
+    <None Include="locale\sr_ID\sr_169.txt" />
+    <None Include="locale\sr_ID\sr_174.txt" />
+    <None Include="locale\sr_ID\sr_184.txt" />
+    <None Include="locale\sr_ID\sr_185.txt" />
+    <None Include="locale\sr_ID\sr_186.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LedyLib\LedyLib.csproj">
+      <Project>{20eaf378-6b39-461b-8879-ac35ca64725c}</Project>
+      <Name>LedyLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SysBot.Base\SysBot.Base.csproj">
+      <Project>{850BECFD-3789-4C07-885E-0AA108C46F60}</Project>
+      <Name>SysBot.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SysBot.Pokemon.Discord\SysBot.Pokemon.Discord.csproj">
+      <Project>{c4be4124-c1cf-4a81-aa7c-de96a169cf1d}</Project>
+      <Name>SysBot.Pokemon.Discord</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SysBot.Pokemon.Z3\SysBot.Pokemon.Z3.csproj">
+      <Project>{dcc41103-1303-4cab-ae01-5ea68317410d}</Project>
+      <Name>SysBot.Pokemon.Z3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SysBot.Pokemon\SysBot.Pokemon.csproj">
+      <Project>{2b520a84-74af-40ec-9b10-a9fcf950d02e}</Project>
+      <Name>SysBot.Pokemon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

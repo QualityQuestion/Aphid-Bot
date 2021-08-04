@@ -14,7 +14,7 @@ namespace SysBot.Pokemon.Discord
     {
         public static async Task SendPKMAsync(this IMessageChannel channel, PKM pkm, string msg = "")
         {
-            var tmp = Path.Combine(Path.GetTempPath(), Util.CleanFileName(pkm.FileName));
+            var tmp = Path.Combine(Path.GetTempPath(), Util.CleanFileName(pkm.FileName)); 
             File.WriteAllBytes(tmp, pkm.DecryptedPartyData);
             await channel.SendFileAsync(tmp, msg).ConfigureAwait(false);
             File.Delete(tmp);
@@ -37,6 +37,20 @@ namespace SysBot.Pokemon.Discord
                 return;
 
             var pkm = result.Data!;
+            await channel.SendPKMAsShowdownSetAsync(pkm).ConfigureAwait(false);
+        }
+        public static async Task PKMtoPK7(this ISocketMessageChannel channel, IAttachment att)
+        {
+            if (!PKX.IsPKM(att.Size))
+                return;
+            var result = await NetUtil.DownloadPKMAsync(att).ConfigureAwait(false);
+            if (!result.Success)
+                return;
+
+            var pkm = result.Data!;
+            pkm = PKMConverter.ConvertToType(pkm, typeof(PK7), out _) ?? pkm;
+            //var pkoutput = @"C:\Users\Lacko\OneDrive\Desktop\sysbot\gen7bot-attempt\test\testNEW.pk7";
+            //File.WriteAllBytes(pkoutput, pkm.DecryptedPartyData);
             await channel.SendPKMAsShowdownSetAsync(pkm).ConfigureAwait(false);
         }
 

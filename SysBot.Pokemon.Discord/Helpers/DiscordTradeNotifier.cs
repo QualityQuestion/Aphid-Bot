@@ -13,7 +13,7 @@ namespace SysBot.Pokemon.Discord
         private int Code { get; }
         private SocketUser Trader { get; }
         public Action<PokeRoutineExecutor>? OnFinish { private get; set; }
-        public readonly PokeTradeHub<PK8> Hub = SysCordInstance.Self.Hub;
+        public readonly PokeTradeHub<PK8> Hub = SysCordInstance.Self.Hub; //changed from pk8
 
         public DiscordTradeNotifier(T data, PokeTradeTrainerInfo info, int code, SocketUser trader)
         {
