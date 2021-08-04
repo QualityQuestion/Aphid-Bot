@@ -12,6 +12,8 @@ For support on using or setting up your own instance of Aphid Bot, feel free to 
 
 Aphid bot is a Sysbot inspired .NET application for Pokemon Ultra Sun and Ultra Moon. It is almost entirely based off [Ledybot](https://github.com/olliz0r/Ledybot) and [Sysbot](https://github.com/kwsch/SysBot.NET)
 
+If you plan on contributing to the development of the bot, I apologize profusely in advance for the spaghetti code. I tried my best to throughouly comment any changes I made, but this was my first ever C# project and it really shows. There are a few non-essential functions like Pk7idlecleanup() that do not work at all as intended. I would like to fix these down the line; but I've spent so much of the last month fixing extremely minor bugs and QoL changes that I feel like if I don't release now, I am never going to.
+
 ## Setting up Aphid Bot:
 
 Video on how to setup Aphid bot: VIDEO LINK HERE.
