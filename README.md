@@ -16,7 +16,7 @@ If you plan on contributing to the development of the bot, I apologize profusely
 
 ## Setting up Aphid Bot:
 
-Video on how to setup Aphid bot: VIDEO LINK HERE.
+[Click here for a video on how to setup Aphid bot](https://youtu.be/BlL6rJFXi9Q)
 
 Ensure you have BootNTR 3.6 and Inputredirection working on your 3DS. Aphid Bot is only tested and working with bot owners with English Ultra Sun/Ultra Moon games. Users of Aphid bot can use any Generation 7 game, from any language/region.
 
@@ -28,7 +28,7 @@ Uses [Discord.Net](https://github.com/discord-net/Discord.Net) and [StreamingCli
 
 ## Using Aphid Bot:
 
-Video on using Aphid bot: VIDEO LINK HERE.
+[Click here for a video on how to setup Aphid bot](https://youtu.be/BlL6rJFXi9Q)
 
 * %help - an example trade request
 * %trade - trade command for a showdown set
