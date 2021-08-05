@@ -18,7 +18,7 @@ If you plan on contributing to the development of the bot, I apologize profusely
 
 [Click here for a video on how to setup Aphid bot](https://youtu.be/BlL6rJFXi9Q)
 
-Ensure you have BootNTR 3.6 and Inputredirection working on your 3DS. Aphid Bot is only tested and working with bot owners with English Ultra Sun/Ultra Moon games. Users of Aphid bot can use any Generation 7 game, from any language/region.
+Ensure you have [BootNTR 3.6](https://github.com/Nanquitas/BootNTR/releases/tag/v2.13.4) and [Inputredirection](https://cdn.discordapp.com/attachments/872571692709457991/872947499533484092/InputRedirection.cia) working on your 3DS. Aphid Bot is only tested and working with bot owners with English Ultra Sun/Ultra Moon games. Users of Aphid bot can use any Generation 7 game, from any language/region.
 
 Aphid Bot will only work on x64 CPUs and Operating systems. Ensure you have all the necessary versions of .NET required to run Ledybot and Sysbot. Download the most recent release of Aphid bot from the Release tab in Github. Extract all of the contents into a folder of your choice. Edit giveawaydetails.xml and replace all "C:\XYXYXYXY\dump" with the folder location of your dump folder, then save the file. Edit the Config.json and replace the "DistributeFolder" and "DumpFolder" locations with the locations of your Distribute and Dump folders, then replace "Token" under the Discord section with your Discord bot's Token.
 
