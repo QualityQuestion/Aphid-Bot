@@ -80,8 +80,25 @@ namespace SysBot.Pokemon.Discord
 
         public static string GetFormattedShowdownText(PKM pkm)
         {
+            var newShowdown = new List<string>();
             var showdown = ShowdownParsing.GetShowdownText(pkm);
-            return Format.Code(showdown);
+            foreach (var line in showdown.Split('\n'))
+                newShowdown.Add(line);
+
+            if (pkm.IsEgg)
+                newShowdown.Add("\nPokémon is an egg");
+            if (pkm.Ball > (int)Ball.None)
+                newShowdown.Insert(newShowdown.FindIndex(z => z.Contains("Nature")), $"Ball: {(Ball)pkm.Ball} Ball");
+            if (pkm.IsShiny)
+            {
+                var index = newShowdown.FindIndex(x => x.Contains("Shiny: Yes"));
+                if (pkm.ShinyXor == 0 || pkm.FatefulEncounter)
+                    newShowdown[index] = ".PID=$shiny\r";
+                else newShowdown[index] = ".PID=$shiny\r";
+            }
+
+            newShowdown.InsertRange(1, new string[] { $".OT_Name={pkm.OT_Name}", $".DisplayTID={pkm.DisplayTID}", $".DisplaySID={pkm.DisplaySID}", $".OT_Gender={pkm.OT_Gender}", $".Language={pkm.Language}" });
+            return Format.Code(string.Join("\n", newShowdown).TrimEnd());
         }
 
         public static List<string> GetListFromString(string str)

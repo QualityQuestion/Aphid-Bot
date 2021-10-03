@@ -50,6 +50,7 @@ namespace LedyLib
         private uint addr_PageCurrentView; //Current selected entry in the list
         private uint addr_PageStartingIndex; //To determine on which page we are, 0 = first page, 100 = second page, etc
         private uint addr_ListOfAllPageEntries; //Startingaddress of all up to 100 trade entries of the current page
+        private uint addr_NoPokemonFound;
 
         private uint addr_box1slot1; //To inject the pokemon into box1slot1
 
@@ -118,7 +119,7 @@ namespace LedyLib
 
         public delegate void changeStatus(string msg);
 
-        public event EventHandler<ItemDetailsEventArgs> onItemDetails; 
+        public event EventHandler<ItemDetailsEventArgs> onItemDetails;
 
         public event changeStatus onChangeStatus;
 
@@ -199,11 +200,13 @@ namespace LedyLib
             if (game == 0)
             {
                 addr_PageSize = 0x32A6A1A4; //How many entries are on the current GTS page
+                addr_NoPokemonFound = 0x3000172C;
                 addr_PageEndStartRecord = 0x32A6A68C; //This address holds the address to the last block in the entry-block-list
                 addr_PageStartStartRecord = 0x32A6A690; //This address holds the address to the first block in the entry block-list
                 addr_PageCurrentView = 0x305ea384; //Current selected entry in the list
                 addr_PageStartingIndex = 0x32A6A190; //To determine on which page we are, 0 = first page, 100 = second page, etc
                 addr_ListOfAllPageEntries = 0x32A6A7C4; //Startingaddress of all up to 100 trade entries of the current page
+
 
                 addr_box1slot1 = 0x330D9838; //To inject the pokemon into box1slot1
 
@@ -230,6 +233,7 @@ namespace LedyLib
                 addr_PageCurrentView = 0x305CD9F4;
                 addr_PageStartingIndex = 0x32992190;
                 addr_ListOfAllPageEntries = 0x329927C4;
+                addr_NoPokemonFound = 0x3000172C;
 
                 addr_box1slot1 = 0x33015AB0;
 
@@ -272,7 +276,7 @@ namespace LedyLib
 
             if (tradeQueue)
             {
-                botState = (int) gtsbotstates.queueempty;
+                botState = (int)gtsbotstates.queueempty;
             }
 
             while (!botstop)
@@ -289,7 +293,7 @@ namespace LedyLib
                         {
                             botState = (int)gtsbotstates.startsearch;
                         }
-                            
+
                         break;
                     case (int)gtsbotstates.botstart:
                         if (bReddit)
@@ -351,16 +355,27 @@ namespace LedyLib
                         }
                         break;
                     case (int)gtsbotstates.findfromstart:
-                            correctScreen = await isCorrectWindow(val_GTSListScreen);
-                            if (!correctScreen)
+                        correctScreen = await isCorrectWindow(val_GTSListScreen);
+                        if (!correctScreen)
+                        {
+                            uint lastreadhold = _helper.lastRead;
+
+                            await _helper.waitNTRread(addr_NoPokemonFound);
+                            uint npfid = _helper.lastRead;
+                            if (npfid == 7274574)
                             {
-                                //Hotfix for Only one Pokemon on List
-                                if (_helper.lastRead != 0x40C0)
-                                {
-                                    botState = (int)gtsbotstates.panic;
-                                    break;
-                                }
+                                attemptz = 4;
+                                holdPokemontoFind = idlePokemontoFind + yaacounter;
+                                await Task.Delay(commandtime + delaytime + 500);
+                                botState = (int)gtsbotstates.startsearch;
                             }
+                            //Hotfix for Only one Pokemon on List
+                            else if (lastreadhold != 0x40C0)
+                            {
+                                botState = (int)gtsbotstates.panic;
+                                break;
+                            }
+                        }
                         //GTS entry list screen, cursor at position 1
                         await _helper.waitNTRread(addr_PageSize);
 
@@ -411,16 +426,16 @@ namespace LedyLib
                         }
                         else
                         {
-                            
+
                             onChangeStatus?.Invoke("Looking for a pokemon to trade");
-                            
+
                             foundLastPage = true;
                             attempts = 0;
                             listlength = (int)_helper.lastRead;
                             dexnumber = 0;
                             if (searchDirection == SEARCHDIRECTION_FROMBACK || searchDirection == SEARCHDIRECTION_FROMBACKFIRSTPAGEONLY)
                             {
-                                await _helper.waitNTRread(addr_PageEndStartRecord);          
+                                await _helper.waitNTRread(addr_PageEndStartRecord);
                             }
                             else
                             {
@@ -480,7 +495,7 @@ namespace LedyLib
                                        {
                                            foreach (char c in invalid)
                                            {
-                                                szNickname = szNickname.Replace(c.ToString(), "a"); //very rare edge case where swapping an invalid char doesn't work, after 20 seconds we panic
+                                               szNickname = szNickname.Replace(c.ToString(), "a"); //very rare edge case where swapping an invalid char doesn't work, after 20 seconds we panic
                                            }
                                        });
                                         TimeSpan ts = TimeSpan.FromMilliseconds(20000);
@@ -495,7 +510,7 @@ namespace LedyLib
                                             {
                                                 int leveltemp = block[0xF];
                                                 int gendertemp = block[0xE];
-                                                if((gendertemp == 0 || gendertemp == 1 || gendertemp == 2) && (leveltemp <= 10 || leveltemp >= 0)) //only accept non-corrupted GTS deposits
+                                                if ((gendertemp == 0 || gendertemp == 1 || gendertemp == 2) && (leveltemp <= 10 || leveltemp >= 0)) //only accept non-corrupted GTS deposits
                                                 {
                                                     TradeModule.LedybotIdleTask(dexnumber, leveltemp, gendertemp, szNickname, eidleshiny);
                                                 }
@@ -508,13 +523,13 @@ namespace LedyLib
                                             continue;
                                         }
                                         bool isdiscord = TradeModule.Determineifdiscord(szNickname); //if this is a discord trade, message the user
-                                        if(isdiscord == true)
+                                        if (isdiscord == true)
                                         {
                                             discordattempts = 0;
                                             await TradeModule.Discorduserfinder(szNickname);
                                             whaaa = true;
                                         }
-                                        
+
                                     }
 
                                     int gender = block[0xE];
@@ -572,11 +587,11 @@ namespace LedyLib
                                     await Task.Delay(commandtime + delaytime + 500);
                                     if (tradeQueue)
                                     {
-                                        if(!_data.tradeQueueRec.Any())
-                                            botState = (int) gtsbotstates.queueempty;
+                                        if (!_data.tradeQueueRec.Any())
+                                            botState = (int)gtsbotstates.queueempty;
                                         else if (_data.tradeQueueRec[0].Item3 >= maxQueueAttempts)
                                         {
-                                            botState = (int) gtsbotstates.queueempty;
+                                            botState = (int)gtsbotstates.queueempty;
                                             _data.RemoveFromQueue(0);
                                         }
                                         else
@@ -612,37 +627,37 @@ namespace LedyLib
                                 yaacounter++;
                                 counter = 0; //reset values
                                 attemptz = 0;
-                                
+
                                 int[] mythicals = { 151, 251, 385, 386, 494, 493, 492, 491, 490, 649, 648, 647, 721, 720, 719, 805, 806, 807 };
                                 int[] evolveByTrade = { 525, 366, 356, 125, 349, 75, 533, 93, 64, 588, 67, 126, 95, 708, 61, 137, 233, 710, 112, 123, 117, 616, 79, 682, 684 };
-                                if (mythicals.Contains(idlePokemontoFind+yaacounter)) //avoid searching for impossible GTS deposits
+                                if (mythicals.Contains(idlePokemontoFind + yaacounter)) //avoid searching for impossible GTS deposits
                                 {
                                     do
                                     {
                                         yaacounter++;
-                                        
-                                    }while (mythicals.Contains(idlePokemontoFind+yaacounter));                                      
+
+                                    } while (mythicals.Contains(idlePokemontoFind + yaacounter));
                                 }
                                 else if (evolveByTrade.Contains(idlePokemontoFind + yaacounter)) //avoid searching for impossible GTS deposits
                                 {
                                     do
                                     {
                                         yaacounter++;
-                                        
-                                    } while (evolveByTrade.Contains(idlePokemontoFind+yaacounter));
+
+                                    } while (evolveByTrade.Contains(idlePokemontoFind + yaacounter));
                                 }
                                 if (idlePokemontoFind >= 804) //if we hit the end of the GTS pokedex, go back to the beginning.
                                 {
                                     yaacounter = 0;
                                     idlePokemontoFind = 1;
                                 }
-                                full = BitConverter.GetBytes(idlePokemontoFind+yaacounter);
+                                full = BitConverter.GetBytes(idlePokemontoFind + yaacounter);
                                 pokemonIndex[0] = full[0];
                                 pokemonIndex[1] = full[1];
                                 await Task.Delay(2250);
                                 botState = (int)gtsbotstates.startsearch;
                             }
-                            
+
                             if (isEmpty == false) //someone is in the GTS queue
                             {
                                 if (TradeModule.qcOnIndexZero == true) //someone tried to qc at position 0 in the queue
@@ -663,7 +678,7 @@ namespace LedyLib
                                 }
 
                                 discordattempts++;
-                                if(isEmpty == false && (holdPokemontoFind != TradeModule.deposited[0])) //if someone is in the queue, and we aren't searching for what they deposited
+                                if (isEmpty == false && (holdPokemontoFind != TradeModule.deposited[0])) //if someone is in the queue, and we aren't searching for what they deposited
                                 {
                                     holdPokemontoFind = TradeModule.deposited[0];
                                     full = BitConverter.GetBytes(holdPokemontoFind); //search for what they deposited
@@ -683,16 +698,16 @@ namespace LedyLib
 
                         break;
                     case (int)gtsbotstates.findfromend:
-                            correctScreen = await isCorrectWindow(val_GTSListScreen);
-                            if (!correctScreen)
+                        correctScreen = await isCorrectWindow(val_GTSListScreen);
+                        if (!correctScreen)
+                        {
+                            //Hotfix for Only one Pokemon on List
+                            if (_helper.lastRead != 0x40C0)
                             {
-                                //Hotfix for Only one Pokemon on List
-                                if (_helper.lastRead != 0x40C0)
-                                {
-                                    botState = (int)gtsbotstates.panic;
-                                    break;
-                                }
+                                botState = (int)gtsbotstates.panic;
+                                break;
                             }
+                        }
                         //also GTS entry list screen, but cursor is at the end of the list in this case
                         await _helper.waitNTRread(addr_PageSize);
 
@@ -770,7 +785,7 @@ namespace LedyLib
                                         }
 
                                     }
-                                    
+
                                     int gender = block[0xE];
                                     int level = block[0xF];
                                     if ((gender == 0 || gender == 1 || gender == 2) && (level <= 10 || level >= 0) && counter > 0)
@@ -935,7 +950,7 @@ namespace LedyLib
                             int subRegionIndex = BitConverter.ToInt16(block, 0x6A);
                             string subregion = "-";
                             _data.regions.TryGetValue(subRegionIndex, out subregion);
-                            
+
                             //Inject the Pokemon to box1slot1
                             _scriptHelper.write(addr_box1slot1, cloneshort, iPID);
                             //spam a to trade pokemon
@@ -952,7 +967,7 @@ namespace LedyLib
                             {
                                 details.Item6.Add(BitConverter.ToInt32(principal, 0));
                             }
-                            
+
                             //during the trade spam a/b to get back to the start screen in case of "this pokemon has been traded"
                             await Task.Delay(10250);
                             _helper.quickbuton(_pkTable.keyA, commandtime);
@@ -975,7 +990,7 @@ namespace LedyLib
                                 szPath = details.Item2 + szNickname + "_RET.pk7"; //create a .pk7 of what they deposited
                                 _scriptHelper.read(addr_box1slot1, (uint)cloneshort.Length, szPath, iPID);
                                 await Task.Delay(1000);
-                                await TradeModule.Discordpokesender(szNickname,szPath); //send it to them
+                                await TradeModule.Discordpokesender(szNickname, szPath); //send it to them
                                 holdPokemontoFind = idlePokemontoFind + yaacounter; //change value
                             }
                             await _helper.waitNTRread(addr_box1slot1 + 0x8, 2);
@@ -1051,7 +1066,7 @@ namespace LedyLib
 
                             if (tradeQueue)
                             {
-                                botState = (int) gtsbotstates.queueempty;
+                                botState = (int)gtsbotstates.queueempty;
                             }
                             else if (bReddit)
                             {
@@ -1077,7 +1092,7 @@ namespace LedyLib
                         await Task.Delay(commandtime + delaytime + 1000);
                         await _helper.waittouch(160, 185);
                         await Task.Delay(2250);
-                        if(tradeQueue)
+                        if (tradeQueue)
                             _data.tradeQueueRec[0] = new Tuple<string, int, int>(_data.tradeQueueRec[0].Item1, _data.tradeQueueRec[0].Item2, _data.tradeQueueRec[0].Item3 + 1);
                         botState = (int)gtsbotstates.findfromstart;
                         break;

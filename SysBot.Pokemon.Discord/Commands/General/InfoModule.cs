@@ -84,8 +84,8 @@ namespace SysBot.Pokemon.Discord
         public async Task HelpAsync()
         {
             var msg0 = "Here is an example of how to request a Pokemon with the GTS bot! \n";
-            var msg1 = "`%trade Pikachu (F)` \n`Ball: Ultra Ball` \n`IVs: 22 HP / 30 Atk / 30 Def / 21 SpA / 14 SpD / 11 Spe` \n`EVs: 40 HP / 40 Atk / 48 Def / 50 SpA / 80 SpD / 252 Spe` \n`Ability: Static` \n`Level: 99` \n`Shiny: Yes` \n`Hardy Nature` \n`- Thunder Shock` \n`- Charm` \n`??d: 89`\n";
-            var msg2 = "This command tells the bot to look on the GTS for a Muk (Muk is pokedex number 89 i.e ??d: 89) and to Generate a Shiny, Level 99 Pikachu, caught in an Ultra Ball, with all of the requested IVs/Evs\n";
+            var msg1 = "```%trade Raichu-Alola (F) @ Focus Sash\nBall: Ultra Ball \nIVs: 22 HP / 30 Atk / 30 Def / 21 SpA / 14 SpD / 11 Spe \nEVs: 40 HP / 40 Atk / 48 Def / 50 SpA / 80 SpD / 252 Spe \nAbility: Surge Surfer \nLevel: 99 \nShiny: Yes \nHardy Nature \n- Thunderbolt \n- Nasty Plot \n??d: 89```";
+            var msg2 = "This command tells the bot to look on the GTS for a Muk (Muk is pokedex number 89 i.e ??d: 89) and to Generate a Shiny, Level 99 Alolan Raichu, caught in an Ultra Ball, holding a Focus Sash, with all of the requested IVs/EVs\n";
             var msg3 = "The bot will then message you a code, change the nickname of your Pokemon that you are going to deposit to the code.";
             var msg4 = msg0 + msg1 + msg2 + msg3;
 
