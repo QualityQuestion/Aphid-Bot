@@ -640,7 +640,6 @@ namespace SysBot.Pokemon.Discord
                     if (pseudorand == nicknamelist[i])
                     {
                         var msg = $"Here is the .pk7 you deposited!";
-
                         byte[] holdz = File.ReadAllBytes(path);
                         PK7 pekay = new PK7(holdz);
                         pekay.ClearNickname();
@@ -753,6 +752,15 @@ namespace SysBot.Pokemon.Discord
             {
                 return; //prevents against corrupted GTS uploads asking for impossible pokemon
             }*/
+            string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            foreach (char c in invalid)
+            {
+                nickname = nickname.Replace(c.ToString(), "a"); // protects against invalid file/path strings breaking the bot
+            }
+            if (nickname == "dsc.ggafgn")
+            {
+                return; //crash avoidance
+            }
             string shinyYes = "";
             int gen = 7;
             var tempa = new PK7 { Species = ledybotdex };
@@ -769,11 +777,6 @@ namespace SysBot.Pokemon.Discord
             int[] stats = { hp, atk, def, spa, spd, spe };
             string[] statarraystring = { " HP", " Atk", " Def", " SpA", " SpD", " Spe" };
             Array.Sort(stats, statarraystring);
-            string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            foreach (char c in invalid)
-            {
-                nickname = nickname.Replace(c.ToString(), "a"); // protects against invalid file/path strings breaking the bot
-            }
             level = level * 10;
             if (level == 0) //if they deposited requesting "ANY"
             {
